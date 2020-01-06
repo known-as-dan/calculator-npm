@@ -1,3 +1,5 @@
+import { Operator, getOperator } from "./operators";
+
 function charIsNumber(char: string) {
 	if ("0" <= char && char <= "9") {
 		return true;
@@ -74,7 +76,7 @@ export function parse(str: string, start?: number, end?: number): Array<any> {
 		}
 		if (charIsWhitespace(char)) {
 			continue;
-		} else if (charIsNumber(char)) {
+		} else if (charIsNumber(char) || char == ".") {
 			if (buffer_type == "word") {
 				parsed_str_array.push(buffer);
 				buffer = ""
@@ -96,6 +98,16 @@ export function parse(str: string, start?: number, end?: number): Array<any> {
 				closing_char_index = enclosure_data[1];
 				parsed_str_array.push(parse(str, i + 1, closing_char_index - 1));
 				i = closing_char_index;
+			} else if (char == ",") {
+				if (buffer_type == "word") {
+					parsed_str_array.push(buffer);
+					buffer = ""
+					buffer_type = "none";
+				} else if (buffer_type == "number") {
+					parsed_str_array.push(Number(buffer));
+					buffer = ""
+					buffer_type = "none";
+				}
 			} else {
 				parsed_str_array.push(char);
 			}
@@ -118,6 +130,23 @@ export function parse(str: string, start?: number, end?: number): Array<any> {
 	}
 
 	return parsed_str_array;
+}
+
+export function calculate(math: Array<any>): number {
+	let result: number;
+	let value: any;
+	let operator: Operator | null;
+	for (let i = 0; i < math.length; i++) {
+		value = math[i];
+
+		if (typeof value == "number") { continue; }
+
+		operator = getOperator(value);
+		if (operator) {
+			
+		}
+	}
+	return 1;
 }
 
 const math = "5 + 5";
