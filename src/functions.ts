@@ -1,7 +1,7 @@
 export interface Function {
 	name: string;
 	identifier: string;
-	func: (a: number, b: number) => number;
+	func: (values: Array<number>) => number;
 }
 
 let functions: Array<Function>;
@@ -10,7 +10,7 @@ export function getFunctions(): Array<Function> {
 	return functions;
 }
 
-export function addFunction(name: string, identifier: string, func: (a: number, b: number) => number) {
+export function addFunction(name: string, identifier: string, func: (values: Array<number>) => number) {
 	functions.push({
 		name: name,
 		identifier: identifier,
@@ -29,3 +29,8 @@ export function getFunction(identifier: string): Function | null {
 	}
 	return null;
 }
+
+addFunction("Cosinus", "cos", (values: Array<number>) => {
+	const num = values[0];
+	return Math.cos(num);
+});

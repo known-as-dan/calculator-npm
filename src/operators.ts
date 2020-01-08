@@ -5,7 +5,7 @@ export interface Operator {
 	func: (a: number, b: number) => number;
 }
 
-let operators: Array<Operator>;
+let operators: Array<Operator> = [];
 
 export function getOperators() {
 	return operators;
@@ -17,7 +17,7 @@ export function addOperator(name: string, identifying_symbol: string, priority: 
 		identifying_symbol: identifying_symbol,
 		priority: priority,
 		func: func
-	})
+	});
 }
 
 export function getOperator(identifying_symbol: string): Operator | null {
@@ -34,4 +34,16 @@ export function getOperator(identifying_symbol: string): Operator | null {
 
 addOperator("Addition", "+", 0, (a, b) => {
 	return a + b;
+});
+
+addOperator("Subtraction", "-", 0, (a, b) => {
+	return a - b;
+});
+
+addOperator("Multiplication", "*", 0, (a, b) => {
+	return a * b;
+});
+
+addOperator("Division", "/", 0, (a, b) => {
+	return a / b;
 });

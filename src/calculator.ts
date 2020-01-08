@@ -59,6 +59,14 @@ function findClosingCharacter(open: string, close: string, start: number, end: n
 	return [opening_char_index, closing_char_index];
 }
 
+function conditionalReturn(condition: boolean, true_: any, false_: any): any {
+	if (condition) {
+		return true_;
+	} else {
+		return false_;
+	}
+}
+
 export function parse(str: string, start?: number, end?: number): Array<any> {
 	start = start || 0;
 	end = end || (str.length - 1);
@@ -132,24 +140,25 @@ export function parse(str: string, start?: number, end?: number): Array<any> {
 	return parsed_str_array;
 }
 
-export function calculate(math: Array<any>): number {
-	let result: number;
+export function calculate(math: Array<any>): any {
+	math = [...math]
+
 	let value: any;
 	let operator: Operator | null;
 	for (let i = 0; i < math.length; i++) {
 		value = math[i];
 
 		if (typeof value == "number") { continue; }
-
-		operator = getOperator(value);
-		if (operator) {
-			
-		}
+		
 	}
-	return 1;
+	return math;
 }
 
-const math = "5 + 5";
-let parsed_math = parse(math);
+const math = "1 + cos (45, (5 + 5))";
+const parsed_math = parse(math);
+const math_result = calculate(parsed_math);
 
+console.log("parse result:");
 console.log(parsed_math);
+console.log("result:");
+console.log(math_result);
