@@ -9,7 +9,7 @@ import { parse, calculate } from "@known-as-dan/calculator";
 const math: string = "1 + 5 * 2";
 const answer: Array<number> = calculate(parse(math));
 
-console.log(`${math} = ${answer}`);
+console.log(`${math} = ${answer[0]}`);
 
 // Output: 
 // 1 + 5 * 2 = 11
