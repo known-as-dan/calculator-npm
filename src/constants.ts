@@ -31,3 +31,6 @@ export function getConstant(identifier: string): MathConstant | null {
 }
 
 addConstant("Pie", "PI", Math.PI);
+addConstant("Euler's number", "e", 2.71828182846);
+addConstant("Zero", "Zero", 0);
+addConstant("One", "One", 1);

@@ -202,13 +202,13 @@ export function calculate(math: Array<any>): Array<any> {
 		}
 	}
 	
-	for (let k = math.length - 1; k >= 0; k--) {
+	for (let k = priority_list.length - 1; k >= 0; k--) {
 		if (priority_list[k]) {
 			for (let i = 0; i < math.length; i++) {
 				value = math[i];
 
 				if (typeof value == "number" || Array.isArray(value)) { continue; }
-				
+				console.log(math)
 				operator = getOperator(value);
 				if (operator && operator.priority == k) {
 					result = operator.func(
