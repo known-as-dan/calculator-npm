@@ -1,5 +1,6 @@
 import { MathOperator, getOperator } from "./operators";
 import { MathFunction, getFunction } from "./functions";
+import { MathConstant, getConstant } from "./constants";
 
 function charIsNumber(char: string) {
 	if ("0" <= char && char <= "9") {
@@ -145,6 +146,16 @@ export function calculate(math: Array<any>): Array<any> {
 	math = [...math]
 
 	let value: any;
+	let constant: MathConstant | null;
+	for (let i = 0; i < math.length; i++) {
+		value = math[i];
+
+		constant = getConstant(value);
+		if (constant) {
+			math[i] = constant.value
+		}
+	}
+
 	let result: number | Array<any>;
 	for (let i = 0; i < math.length; i++) {
 		value = math[i];
@@ -224,15 +235,3 @@ export function calculate(math: Array<any>): Array<any> {
 	}
 	return math;
 }
-
-// TODO:
-// - utilize priority implementation within the calculate function
-
-const math = "5 + 5 * 5";
-const parsed_math = parse(math);
-const math_result = calculate(parsed_math);
-
-console.log("parse result:");
-console.log(parsed_math);
-console.log("result:");
-console.log(math_result);
