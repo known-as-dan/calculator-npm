@@ -1,4 +1,5 @@
-import { Operator, getOperator } from "./operators";
+import { MathOperator, getOperator } from "./operators";
+import { MathFunction, getFunction } from "./functions";
 
 function charIsNumber(char: string) {
 	if ("0" <= char && char <= "9") {
@@ -103,7 +104,7 @@ export function parse(str: string, start?: number, end?: number): Array<any> {
 			}
 			if (char == "(") {
 				enclosure_data = findClosingCharacter("(", ")", i, end, str);
-				closing_char_index = enclosure_data[1];
+				closing_char_index = conditionalReturn(enclosure_data[1] >= 0, enclosure_data[1], end + 1);
 				parsed_str_array.push(parse(str, i + 1, closing_char_index - 1));
 				i = closing_char_index;
 			} else if (char == ",") {
@@ -140,21 +141,78 @@ export function parse(str: string, start?: number, end?: number): Array<any> {
 	return parsed_str_array;
 }
 
-export function calculate(math: Array<any>): any {
+export function calculate(math: Array<any>): Array<any> {
 	math = [...math]
 
 	let value: any;
-	let operator: Operator | null;
+	let result: number | Array<any>;
+	for (let i = 0; i < math.length; i++) {
+		value = math[i];
+		if (Array.isArray(value)) {
+			result = calculate(value);
+			if (getFunction(math[i - 1])) {
+				math[i] = result;
+			} else {
+				math[i] = result[0];
+			}
+		}
+	}
+
+	let func: MathFunction | null;
+	for (let i = 0; i < math.length; i++) {
+		value = math[i];
+		
+		if (typeof value == "number") { continue; }
+
+		func = getFunction(value);
+		if (func) {
+			result = func.func(
+				conditionalReturn(Array.isArray(math[i + 1]), math[i + 1], [])
+			);
+			if (Array.isArray(math[i + 1])) {
+				math[i] = result;
+				math.splice(i + 1, 1);
+			} else {
+				math.splice(i, 1);
+			}
+		}
+	}
+
+	let operator: MathOperator | null;
 	for (let i = 0; i < math.length; i++) {
 		value = math[i];
 
 		if (typeof value == "number") { continue; }
 		
+		operator = getOperator(value);
+		if (operator) {
+			result = operator.func(
+				conditionalReturn(typeof math[i - 1] == "number", math[i - 1], 0),
+				conditionalReturn(typeof math[i + 1] == "number", math[i + 1], 0)		
+			);
+			if ((typeof math[i - 1] == "number") && (typeof math[i + 1] == "number")) {
+				math[i - 1] = result;
+				math.splice(i, 2);
+				i--;
+			} else if (typeof math[i - 1] == "number") {
+				math[i - 1] = result;
+				math.splice(i, 1);
+				i--;
+			} else if (typeof math[i + 1] == "number") {
+				math[i] = result;
+				math.splice(i + 1, 1);
+			} else {
+				math.splice(i, 1);
+			}
+		}
 	}
 	return math;
 }
 
-const math = "1 + cos (45, (5 + 5))";
+// TODO:
+// - utilize priority implementation within the calculate function
+
+const math = "rand(5, (10)";
 const parsed_math = parse(math);
 const math_result = calculate(parsed_math);
 
