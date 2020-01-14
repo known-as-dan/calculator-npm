@@ -49,3 +49,7 @@ addOperator("Multiplication", "*", "A * B", 1, (a, b) => {
 addOperator("Division", "/", "A / B", 1, (a, b) => {
 	return a / b;
 });
+
+addOperator("Power", "^", "A ^ B", 1, (a, b) => {
+	return Math.pow(a, b);
+});
