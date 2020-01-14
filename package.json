@@ -1,6 +1,6 @@
 {
   "name": "@known-as-dan/calculator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A modular text-parsing calculator that enables the creation of custom operators, functions and constants with ease.",
   "main": "dist/index.js",
   "repository": "https://github.com/known-as-dan/calculator-npm.git",
