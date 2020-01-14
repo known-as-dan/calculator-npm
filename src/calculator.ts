@@ -202,7 +202,7 @@ export function calculate(math: Array<any>): Array<any> {
 		}
 	}
 	
-	for (let k = 0; k < priority_list.length; k++) {
+	for (let k = priority_list.length - 1; k >= 0; k--) {
 		if (priority_list[k]) {
 			for (let i = math.length - 1; i >= 0; i--) {
 				value = math[i];
