@@ -1,6 +1,10 @@
 import { parse, calculate } from "./calculator";
-import { addFunction, fetchValue } from "./functions";
-import { addOperator } from "./operators";
-import { addConstant } from "./constants";
+import { addFunction, fetchValue, MathFunction, getFunctions } from "./functions";
+import { addOperator, MathOperator, getOperators } from "./operators";
+import { addConstant, MathConstant, getConstants } from "./constants";
 
-export { parse, calculate, addOperator, fetchValue, addFunction, addConstant };
+export { parse, calculate,
+	MathOperator, getOperators, addOperator, 
+	MathFunction, getFunctions, fetchValue, addFunction,
+	MathConstant, getConstants, addConstant
+};
