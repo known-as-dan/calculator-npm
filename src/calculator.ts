@@ -191,7 +191,7 @@ export function calculate(math: Array<any>): Array<any> {
 
 	let operator: MathOperator | null;
 	let priority_list: Array<boolean> = [];
-	for (let i = 0; i < math.length; i++) {
+	for (let i = math.length - 1; i >= 0; i--) {
 		value = math[i];
 
 		if (typeof value == "number" || Array.isArray(value)) { continue; }
@@ -204,28 +204,28 @@ export function calculate(math: Array<any>): Array<any> {
 	
 	for (let k = priority_list.length - 1; k >= 0; k--) {
 		if (priority_list[k]) {
-			for (let i = 0; i < math.length; i++) {
+			for (let i = math.length - 1; i >= 0; i--) {
 				value = math[i];
 
 				if (typeof value == "number" || Array.isArray(value)) { continue; }
-				console.log(math)
+
 				operator = getOperator(value);
 				if (operator && operator.priority == k) {
+				
 					result = operator.func(
 						conditionalReturn(typeof math[i - 1] == "number", math[i - 1], 0),
 						conditionalReturn(typeof math[i + 1] == "number", math[i + 1], 0)		
 					);
-					if ((typeof math[i - 1] == "number") && (typeof math[i + 1] == "number")) {
-						math[i - 1] = result;
-						math.splice(i, 2);
-						i--;
-					} else if (typeof math[i - 1] == "number") {
-						math[i - 1] = result;
-						math.splice(i, 1);
+					if ((typeof math[i + 1] == "number") && (typeof math[i - 1] == "number")) {
+						math[i + 1] = result;
+						math.splice(i - 1, 2);
 						i--;
 					} else if (typeof math[i + 1] == "number") {
+						math[i + 1] = result;
+						math.splice(i, 1);
+					} else if (typeof math[i - 1] == "number") {
 						math[i] = result;
-						math.splice(i + 1, 1);
+						math.splice(i - 1, 1);
 					} else {
 						math.splice(i, 1);
 					}
@@ -235,3 +235,5 @@ export function calculate(math: Array<any>): Array<any> {
 	}
 	return math;
 }
+
+console.log(calculate(parse("5 * -2")))
