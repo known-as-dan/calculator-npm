@@ -75,7 +75,7 @@ addFunction("Reverse Sine", "asin", "asin(num)", (values: Array<number>) => {
 	return Math.asin(num) * (180 / Math.PI);
 });
 
-addFunction("Reverse Tangent", "atan", "atan(num", (values: Array<number>) => {
+addFunction("Reverse Tangent", "atan", "atan(num)", (values: Array<number>) => {
 	const num: number = fetchValue(values, 0);
 	return Math.atan(num) * (180 / Math.PI);
 });
