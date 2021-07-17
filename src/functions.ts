@@ -67,17 +67,17 @@ addFunction("Tangent", "tan", "tan(degrees)", (values: Array<number>) => {
 
 addFunction("Reverse Cosine", "acos", "acos(num)", (values: Array<number>) => {
 	const num: number = fetchValue(values, 0);
-	return Math.acos(num);
+	return Math.acos(num) * (180 / Math.PI);
 });
 
 addFunction("Reverse Sine", "asin", "asin(num)", (values: Array<number>) => {
 	const num: number = fetchValue(values, 0);
-	return Math.asin(num);
+	return Math.asin(num) * (180 / Math.PI);
 });
 
 addFunction("Reverse Tangent", "atan", "atan(num", (values: Array<number>) => {
 	const num: number = fetchValue(values, 0);
-	return Math.atan(num);
+	return Math.atan(num) * (180 / Math.PI);
 });
 
 addFunction("Round", "round", "round(num)", (values: Array<number>) => {
