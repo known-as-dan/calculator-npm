@@ -1,6 +1,8 @@
 # About
 A modular text-parsing calculator that enables the creation of custom operators, functions and constants with ease.
 
+This NPM package was made to be used as a backend for my [web based calculator](https://github.com/known-as-dan/calculator-web).
+
 # Usage
 Parsing and calculating a simple math statement:
 ```typescript
