@@ -101,7 +101,7 @@ addFunction("Random", "rand", "rand(min, max)", (values: Array<number>) => {
 	return Math.floor(Math.random() * (max - min)) + min;
 });
 
-addFunction("Fixed Decimal Places", "toFixed", "toFixed(min, max)", (values: Array<number>) => {
+addFunction("Fixed Decimal Places", "toFixed", "toFixed(num, decimal_places)", (values: Array<number>) => {
 	const num = fetchValue(values, 0);
 	const decimal_places = fetchValue(values, 1);
 	return Number(num.toFixed(decimal_places));
